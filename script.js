@@ -13,13 +13,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
     let winCombo = [
         ["topL", "topM", "topR"],
-        ["midL", "midm", "midR"],
+        ["midL", "midM", "midR"],
         ["botL", "botM", "botR"],
         ["topL", "midM", "botR"],
         ["topR", "midM", "botL"],
-        ["topL", "midL", "botL"],
+        ["topR", "midR", "botR"],
         ["topM", "midM", "botM"],
-        ["topR", "midR", "botR"]
+        ["topL", "midL", "botL"]
     ] 
 
     function boxClick(event) {
@@ -35,7 +35,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 displayTurn.innerText = "Player O's turn"
                 turnNum++
                 playerX.push(tileCheck.id)
-                console.log(playerX)
             } else {
                 tileCheck.classList.add("playedO")
                 tileCheck.innerText = "O"
@@ -47,20 +46,25 @@ window.addEventListener("DOMContentLoaded", () => {
                 gameOver()
             }
             if (turnNum === 9) {
-                displayTurn.innerText = "Tie Game"
-                displayResults.innerText = "Play Again"
-                stopGame()
+                gameOver() 
+                 if (displayTurn.innerText !== "") {
+                    displayTurn.innerText = "Play Again"
+                    displayResults.innerText = "Game Tied"
+                    stopGame()
+                 }
+                
             }
         }
     }
 
     gameboard.addEventListener("click", boxClick)
 
-    function gameOver () { for (let i = 0; i < winCombo.length; i++) {
+    function gameOver () { 
+        for (let i = 0; i < winCombo.length; i++) {
         let winFoundX = 0
         let winFoundO = 0
         
-        for (let y = 0; y < winCombo.length; y++) {
+        for (let y = 0; y < winCombo[i].length; y++) {
           if (playerX.includes(winCombo[i][y])) {
             winFoundX++
             if (winFoundX === 3) {
@@ -84,9 +88,20 @@ window.addEventListener("DOMContentLoaded", () => {
     function stopGame () {
         gameboard.removeEventListener ("click", boxClick)
     }
-resetBtn.addEventListener("click", function resetGameBoard () {
+    resetBtn.addEventListener("click", function resetGameBoard () {
+        let gameTiles = document.getElementsByClassName("gameTile")
+        for (let i = 0; i < gameTiles.length; i++) {
+            gameTiles[i].classList = "gameTile"
+            gameTiles[i].innerText = ""
+        }
+        displayTurn.innertext = "Player X goes first"
+        displayResults.innerText = ""
+        gameboard.addEventListener("click", boxClick)
 
-})
+        turnNum = 0
+        playerX = []
+        playerO = []    
+    })
    
 // Function boxClick() --> add event listener on user click of game tile
 //if box already played, alert user to find another tile to play
