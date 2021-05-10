@@ -43,11 +43,21 @@ window.addEventListener("DOMContentLoaded", () => {
                 turnNum++
                 playerO.push(tileCheck.id)
             }
+            if (turnNum >= 4) {
+                gameOver()
+            }
+            if (turnNum === 9) {
+                displayTurn.innerText = "Tie Game"
+                displayResults.innerText = "Play Again"
+            }
         }
-
     }
 
     gameboard.addEventListener("click", boxClick)
+
+    function gameOver () {
+        console.log("hello")
+    }
 
 // Function boxClick() --> add event listener on user click of game tile
 //if box already played, alert user to find another tile to play
