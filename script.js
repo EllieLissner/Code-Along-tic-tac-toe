@@ -55,10 +55,34 @@ window.addEventListener("DOMContentLoaded", () => {
 
     gameboard.addEventListener("click", boxClick)
 
-    function gameOver () {
-        console.log("hello")
+    function gameOver () { for (let i = 0; i < winCombo.length; i++) {
+        let winFoundX = 0
+        let winFoundO = 0
+        
+        for (let y = 0; y < winCombo.length; y++) {
+          if (playerX.includes(winCombo[i][y])) {
+            winFoundX++
+            if (winFoundX === 3) {
+              displayResults.innerText = "player X has won"
+              stopGame()
+            }
+          }
+          if (playerO.includes(winCombo[i][y])) {
+            winFoundO++
+            if (winFoundO === 3) {
+              displayResults.innerText = "player O has won"
+              stopGame()
+            }
+          }
+        }
+      }
     }
 
+    function stopGame () {
+        gameboard.removeEventListener ("click", boxClick)
+    }
+
+   
 // Function boxClick() --> add event listener on user click of game tile
 //if box already played, alert user to find another tile to play
 // check for X or O turn and display message in displayTurn box 
