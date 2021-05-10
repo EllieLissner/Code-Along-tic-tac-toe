@@ -49,6 +49,7 @@ window.addEventListener("DOMContentLoaded", () => {
             if (turnNum === 9) {
                 displayTurn.innerText = "Tie Game"
                 displayResults.innerText = "Play Again"
+                stopGame()
             }
         }
     }
@@ -64,6 +65,7 @@ window.addEventListener("DOMContentLoaded", () => {
             winFoundX++
             if (winFoundX === 3) {
               displayResults.innerText = "player X has won"
+              displayTurn.innerText = ""
               stopGame()
             }
           }
@@ -71,6 +73,7 @@ window.addEventListener("DOMContentLoaded", () => {
             winFoundO++
             if (winFoundO === 3) {
               displayResults.innerText = "player O has won"
+              displayTurn.innerText = ""
               stopGame()
             }
           }
@@ -81,7 +84,9 @@ window.addEventListener("DOMContentLoaded", () => {
     function stopGame () {
         gameboard.removeEventListener ("click", boxClick)
     }
+resetBtn.addEventListener("click", function resetGameBoard () {
 
+})
    
 // Function boxClick() --> add event listener on user click of game tile
 //if box already played, alert user to find another tile to play
